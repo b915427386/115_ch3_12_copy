@@ -5,6 +5,9 @@ from myapp.models import *                      # 導入所有模型類
 from django.forms.models import model_to_dict   # 用於將模型實例轉換為字典
 
 # Create your views here.
+def index(request):
+    return redirect('index')
+
 def search_list(request):
     if 'cname' in request.GET:
         cname = request.GET['cname']
