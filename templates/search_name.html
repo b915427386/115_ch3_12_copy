@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>學生資料管理系統-姓名搜尋</title>
+{% endblock %}
+
+{% block content %}
+    <div class="card-warm p-4 mx-auto" style="max-width: 500px;">
+        <h2 class="text-warm text-center mb-4">依姓名搜尋學生</h2>
+        <form action="{% url 'search_list' %}" method="get" class="row g-2">
+            <div class="col-12">
+                <label for="cname" class="form-label">姓名</label>
+                <input type="text" id="cname" name="cname" class="form-control" placeholder="請輸入姓名">
+            </div>
+            <div class="col-12 text-center mt-3">
+                <button type="submit" class="btn btn-warm px-4">搜尋</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+/* 暖色調簡約風格主題 */
+:root {
+    --warm-bg: #fbf6ee;
+    --warm-surface: #fffdf9;
+    --warm-primary: #c17a4e;
+    --warm-primary-dark: #a8623a;
+    --warm-secondary: #8d6a54;
+    --warm-text: #4a3a2f;
+    --warm-muted: #96826f;
+    --warm-border: #ead9c3;
+    --warm-accent-light: #f3e3cf;
+}
+
+body {
+    background-color: var(--warm-bg);
+    color: var(--warm-text);
+    font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+}
+
+.navbar-warm {
+    background-color: var(--warm-primary);
+}
+
+.navbar-warm .navbar-brand,
+.navbar-warm .nav-link {
+    color: #fff8ef !important;
+}
+
+.navbar-warm .nav-link:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.page-footer {
+    color: var(--warm-muted);
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.card-warm {
+    background-color: var(--warm-surface);
+    border: 1px solid var(--warm-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(140, 106, 84, 0.08);
+}
+
+.btn-warm {
+    background-color: var(--warm-primary);
+    border-color: var(--warm-primary);
+    color: #fff;
+}
+
+.btn-warm:hover {
+    background-color: var(--warm-primary-dark);
+    border-color: var(--warm-primary-dark);
+    color: #fff;
+}
+
+.btn-outline-warm {
+    color: var(--warm-primary);
+    border-color: var(--warm-primary);
+}
+
+.btn-outline-warm:hover {
+    background-color: var(--warm-primary);
+    color: #fff;
+}
+
+.table-warm thead {
+    background-color: var(--warm-accent-light);
+    color: var(--warm-text);
+}
+
+.table-warm td, .table-warm th {
+    vertical-align: middle;
+    border-color: var(--warm-border);
+}
+
+.page-link {
+    color: var(--warm-primary);
+}
+
+.page-item.active .page-link {
+    background-color: var(--warm-primary);
+    border-color: var(--warm-primary);
+}
+
+.page-link:hover {
+    color: var(--warm-primary-dark);
+}
+
+.form-control:focus {
+    border-color: var(--warm-primary);
+    box-shadow: 0 0 0 0.2rem rgba(193, 122, 78, 0.2);
+}
+
+.text-warm {
+    color: var(--warm-primary);
+}

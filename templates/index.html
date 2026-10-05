@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>學生資料管理系統</title>
+{% endblock %}
+
+{% block content %}
+    <div class="card-warm p-4 mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <h2 class="text-warm mb-0">學生資料列表</h2>
+            <a href="{% url 'post' %}" class="btn btn-warm">+ 新增學生</a>
+        </div>
+        <p class="text-muted mb-3">目前的學生資料筆數: <strong>{{ data_count }}</strong></p>
+
+        <form action="{% url 'index' %}" method="GET" class="row g-2 mb-2">
+            <div class="col-auto flex-grow-1">
+                <input type="text" name="site_search" id="site_search" class="form-control" placeholder="輸入姓名、生日、郵件、電話或地址搜尋" value="{{ request.GET.site_search }}">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-warm">搜尋</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-warm p-4">
+        {% if status %}
+        <div class="table-responsive">
+            <table class="table table-warm table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>學號</th>
+                        <th>姓名</th>
+                        <th>性別</th>
+                        <th>出生日期</th>
+                        <th>郵件</th>
+                        <th>電話</th>
+                        <th>地址</th>
+                        <th>編輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% comment %} {% for data in resultList %} {% endcomment %}
+                    {% for data in page_obj %}
+                    <tr>
+                        <td>{{ data.cid }}</td>
+                        <td>{{ data.cname }}</td>
+                        <td>{% if data.csex == 'M' %}男{% else %}女{% endif %}</td>
+                        <td>{{ data.cbirthday|date:"Y-m-d" }}</td>
+                        <td>{{ data.cemail }}</td>
+                        <td>{{ data.cphone }}</td>
+                        <td>{{ data.caddr }}</td>
+                        <td>
+                            {% comment %} <a href="edit/?cid={{ data.cid }}">修改</a> <!-- 傳統寫法 --> {% endcomment %}
+                            <a href="{% url 'edit' data.cid %}" class="btn btn-sm btn-outline-warm">修改</a>            <!-- 別名寫法 -->
+                            {%comment%} <a href="delete/?cid={{ data.cid }}">刪除</a> <!-- 傳統寫法 --> {% endcomment %}
+                            <a href="{% url 'delete' data.cid %}" class="btn btn-sm btn-outline-danger">刪除</a>          <!-- 別名寫法 -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="分頁導覽">
+            <ul class="pagination justify-content-center mt-3">
+                {% if page_obj.has_previous %}  <!-- 判斷是否有最前頁 -->
+                    <li class="page-item"><a class="page-link" href="?page=1">最前頁</a></li>    <!-- if true 則顯示最前頁連結(跳到最前頁) -->
+                {%else%}
+                    <li class="page-item disabled"><span class="page-link">最前頁</span></li>
+                {% endif %}
+                {% if page_obj.has_previous %}  <!-- 判斷是否有上一頁 -->
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">上一頁</a></li>
+                {%else%}
+                    <li class="page-item disabled"><span class="page-link">上一頁</span></li>
+                {% endif %}
+
+                <!-- 頁碼顯示區 -->
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}  <!-- 判斷是否有下一頁 -->
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">下一頁</a></li>
+                {%else%}
+                    <li class="page-item disabled"><span class="page-link">下一頁</span></li>
+                {% endif %}
+                {% if page_obj.has_next %}  <!-- 判斷是否有最後頁 -->
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">最後頁</a></li>   <!-- if true 則顯示最後頁連結(跳到最後頁) -->
+                {%else%}
+                    <li class="page-item disabled"><span class="page-link">最後頁</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        {% else %}
+        <h4 class="text-center text-muted py-4">{{ errorMessage }}</h4>
+        {% endif %}
+    </div>
+
+{% endblock %}
